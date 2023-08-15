@@ -1,6 +1,35 @@
 import React from "react";
+import {useState, useEffect} from "react";
+import axios from "axios";
 
 export default function Sample() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3002/api/kritik")
+      .then((res) => {
+        setData(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  console.log(data);
+
+  const handleDelete = (id) => {
+    axios.delete(`http://localhost:3002/api/kritik/${id}`)
+      .then((res) => {
+        console.log(res);
+        alert("Admin berhasil dihapus");
+        window.location.reload();
+        setData(data.filter((item) => item._id !== id));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div>
       <div className="content-wrapper">
@@ -8,7 +37,7 @@ export default function Sample() {
           <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">
               <div className="card-body">
-                <h4 className="card-title">Basic Table</h4>
+                <h4 className="card-title">Daftar Kritik dan Saran</h4>
                 <p className="card-description">
                   {" "}
                   Add className <code>.table</code>
@@ -18,31 +47,46 @@ export default function Sample() {
                   <table className="table">
                     <thead>
                       <tr>
-                        <th>Profile</th>
-                        <th>VatNo.</th>
-                        <th>Created</th>
-                        <th>Status</th>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Kritik</th>
+                        <th>Saran</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Jacob</td>
-                        <td>53275531</td>
-                        <td>12 May 2017</td>
+                    {data.length > 0 ? (data.map((item, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{item.name}</td>
+                        <td>{item.kritik}</td>
                         <td>
-                          <label className="badge badge-danger">Pending</label>
+                          {item.saran}
                         </td>
-                      </tr>
-                      <tr>
-                        <td>Messsy</td>
-                        <td>53275532</td>
-                        <td>15 May 2017</td>
                         <td>
-                          <label className="badge badge-warning">
-                            In progress
-                          </label>
-                        </td>
+                              {/* <button className='btn btn-success mr-3 rounded text-white'>
+                              <Link href={`/admin/editAdmin?id=${pelanggan.id}&username=${pelanggan.username}&nama=${pelanggan.nama}&passwrod=${pelanggan.password}`}
+                            >
+                              Edit
+                            </Link>
+                              </button> */}
+                                <button
+                                  className="btn btn-danger ml-3 rounded text-white"
+                                  onClick={() => handleDelete(item.id)}
+                                >
+                                  <i className="far fa-edit mr-1" />
+                                  Delete
+                                </button>
+                              </td>
                       </tr>
+                      ))
+                      ) : (
+                        <tr>
+                          <td colSpan="5" className="text-center">
+                            Data Kosong
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>

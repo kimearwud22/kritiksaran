@@ -1,5 +1,5 @@
 
-import Sample from '@/components/admin/dashboard/sample'
+import Sample from '@/components/admin/dashboard/Sample'
 import Layout from '@/components/admin/utils/Layout'
 import React from 'react'
 

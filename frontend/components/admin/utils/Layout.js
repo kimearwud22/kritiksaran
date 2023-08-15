@@ -9,24 +9,23 @@ export default function Layout({ children }) {
       <Head>
         <meta charset="utf-8" />
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
-        <title>BEM | Stikom Banyuwangi</title>
+        <title>Admin | Kritik dan Saran</title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* <link rel="shortcut icon" href="/dist/img/logo/logos.png" /> */}
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div
-        id="app"
-        className="container-scroller"
-        style={{ backgroundColor: "black" }}
-      >
-        <Sidebar />
-        <div className="container-fluid page-body-wrapper">
-          <Navbar />
-          <div className="main-panel">
-            {children}
+      <div id="page-top" className="container-scroller">
+        <div id="wrapper">
+          <Sidebar />
+          <div id="content-wrapper" className="d-flex flex-column">
+            <div className="content">
+              <Navbar />
+              {children}
+            </div>
             <Footer />
           </div>
+          
         </div>
       </div>
     </div>

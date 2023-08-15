@@ -12,6 +12,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 // import '../public/admin/vendors/owl-carousel-2/owl.theme.default.min.css'
 // import 'bootstrap/dist/js/bootstrap.bundle.min'; 
 
+// admin css
+import '../public/admin/admin/css/ruang-admin.min.css'
+
 export default function App({ Component, pageProps }) {
   return <Component {...pageProps} />
 }
